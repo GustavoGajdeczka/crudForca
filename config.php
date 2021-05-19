@@ -13,25 +13,20 @@
 
     /** caminho absoluto para a pasta do sistema **/
     if( !defined('ABSPATH')){
-        define('ABSPATH', dirname(__FILE__) . '/');
+        define('ABSPATH', dirname(__FILE__) . DIRECTORY_SEPARATOR);
     }
 
     /** caminho no server para o sistema **/
     if (!defined('BASE_URL')){
-        define('BASE_URL', '/CRUD/');
+        define('BASE_URL', DIRECTORY_SEPARATOR . 'CRUD' . DIRECTORY_SEPARATOR);
     }
 
     /** caminho do arquivo de banco de dados **/
     if (!defined('DBAPI')){
-        define('DBAPI', ABSPATH . 'inc/database.php');
+        define('DBAPI', ABSPATH . 'inc' . DIRECTORY_SEPARATOR . 'database.php');
     }
 
-    try{
-        $conexao = new PDO("mysql:host=localhost; dbname=crudforca", "root", "");
-        $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $conexao->exec("set names utf8");
-        var_dump($conexao);
-    } catch(PDOException $e) {
-        echo 'Error: ' . $e->getMessage();
-    }
+    /** caminhos dos templates de header e footer **/
+    define('HEADER_TEMPLATE', ABSPATH . 'inc' . DIRECTORY_SEPARATOR .'header.php');
+    define('FOOTER_TEMPLATE', ABSPATH . 'inc' . DIRECTORY_SEPARATOR .'footer.php');
 ?>
