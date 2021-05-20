@@ -22,4 +22,38 @@
         }
     }
 
+    /* Pesquisa um Registro pelo ID em uma Tabela */
+    function find($table = null, $id = null){
+        $database = open_database();
+        $found = null;
+
+        try {
+            if($id){
+                $sql = "SELECT * FROM " . $table . " WHERE id = ". $id;
+                $result = $database->query($sql);
+
+                if($result->num_rows > 0){
+                    $found = $result->fetch_assoc();
+                } 
+            }else{
+                $sql = "SELECT * FROM " . $table;
+                $result = $database->query($sql);
+
+                if($result->num_rows > 0){
+                    $found = $result->fetch_all(MYSQLI_ASSOC);
+                } 
+            }
+        } catch (Exception $e) {
+            $_SESSION['message'] = $e->getMessage();
+            $_SESSION['type'] = 'danger';
+        }
+
+        close_database($database);
+        return $found;
+    }
+
+    /* Pesquisa Todos os Registros de um tabela */
+    function find_all($table){
+        return find($table);
+    }
 ?>
